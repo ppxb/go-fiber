@@ -4,11 +4,12 @@ networks:
   loki:
 
 services:
-#  app:
-#    build: .
-#    restart: always
-#    ports:
-#      - "5001:5001"
+  app:
+    build: .
+    container_name: app
+    restart: always
+    ports:
+      - "5001:5001"
 
   loki:
     image: grafana/loki:main
@@ -16,18 +17,8 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - "./etc/loki:/mnt/config"
+      - "./loki:/mnt/config"
     command: -config.file=/mnt/config/loki-config.yml
-    networks:
-      - loki
-
-  promtail:
-    image: grafana/promtail:main
-    container_name: promtail-service
-    volumes:
-      - "./etc/promtail:/mnt/config"
-      - "/var/lib/docker/containers:/var/lib/docker/containers"
-    command: -config.file=/mnt/config/promtail-config.yml
     networks:
       - loki
 

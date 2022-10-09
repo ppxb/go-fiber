@@ -11,5 +11,5 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /main .
 
-EXPOSE 8080
+EXPOSE 5001
 CMD ["./main"]
