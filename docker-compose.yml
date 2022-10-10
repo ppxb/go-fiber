@@ -17,8 +17,8 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - "./loki:/mnt/config"
-    command: -config.file=/mnt/config/loki-config.yml
+      - "./loki:/mnt/configs"
+    command: -configs.file=/mnt/configs/loki-configs.yml
     networks:
       - loki
 

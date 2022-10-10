@@ -14,11 +14,23 @@ type Options struct {
 	lineNumVersion bool
 }
 
+type FileWithLineNumOptions struct {
+	skipGorm   bool
+	skipHelper bool
+}
+
+func getFileWithLineNumOptions(options *FileWithLineNumOptions) *FileWithLineNumOptions {
+	if options == nil {
+		return &FileWithLineNumOptions{}
+	}
+	return options
+}
+
 func getOptions(options *Options) *Options {
 	if options == nil {
 		return &Options{
 			level:          DebugLevel,
-			lineNum:        true,
+			lineNum:        false,
 			lineNumLevel:   1,
 			lineNumVersion: true,
 		}

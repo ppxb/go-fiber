@@ -73,7 +73,7 @@ func (l *zapLog) Log(level Level, args ...interface{}) {
 	}
 }
 
-func (l *zapLog) LogF(level Level, format string, args ...interface{}) {
+func (l *zapLog) Logf(level Level, format string, args ...interface{}) {
 	ll := loggerToZapLevel(level)
 	msg := fmt.Sprintf(format, args...)
 	switch ll {
