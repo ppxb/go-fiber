@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"context"
 	"embed"
 	m "github.com/go-sql-driver/mysql"
 	"github.com/pkg/errors"
@@ -11,7 +12,7 @@ import (
 
 var sqlFs embed.FS
 
-func Mysql() {
+func Mysql(ctx context.Context) {
 	cfg, err := m.ParseDSN(global.Conf.Mysql.Uri)
 	if err != nil {
 		panic(errors.Wrap(err, "initialized mysql failed"))
