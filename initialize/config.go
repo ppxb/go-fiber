@@ -22,6 +22,7 @@ const (
 )
 
 func Config(c context.Context, conf embed.FS) {
+	// init config box
 	box := ms.ConfBox{
 		Ctx: c,
 		Fs:  conf,
@@ -29,6 +30,7 @@ func Config(c context.Context, conf embed.FS) {
 	}
 	global.ConfBox = box
 
+	// chose config file
 	var configName string
 	v := viper.New()
 	if strings.ToLower(global.ProMode) == "prod" {
@@ -37,6 +39,7 @@ func Config(c context.Context, conf embed.FS) {
 		configName = developmentConfig
 	}
 
+	// read config in global config box
 	readConfig(box, v, configName)
 	settings := v.AllSettings()
 	for index, setting := range settings {
@@ -47,6 +50,7 @@ func Config(c context.Context, conf embed.FS) {
 		panic(errors.Wrapf(err, "initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configName))
 	}
 
+	// initialize some other options
 	if global.Conf.Server.ConnectTimeout < 1 {
 		global.Conf.Server.ConnectTimeout = defaultConnectTimeout
 	}

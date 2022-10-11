@@ -24,15 +24,15 @@ func Mysql(ctx context.Context) {
 		migrate.WithUri(uri),
 		migrate.WithFs(sqlFs),
 		migrate.WithFsRoot("db"),
-		migrate.WithBefore(beforeMigrate),
+		//migrate.WithBefore(beforeMigrate),
 	)
-	if err != nil {
-		panic(errors.Wrap(err, "initialize mysql failed"))
-	}
-	err = binlogListen()
-	if err != nil {
-		panic(errors.Wrap(err, "initialize mysql binlog failed"))
-	}
+	//if err != nil {
+	//	panic(errors.Wrap(err, "initialize mysql failed"))
+	//}
+	//err = binlogListen()
+	//if err != nil {
+	//	panic(errors.Wrap(err, "initialize mysql binlog failed"))
+	//}
 
 	log.WithContext(ctx).Info("initialize mysql success")
 }
