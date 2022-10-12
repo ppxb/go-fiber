@@ -48,7 +48,7 @@ func Do(options ...func(*Options)) (err error) {
 				WithFields(map[string]interface{}{
 					"LockName": ops.lockName,
 				}).
-				Info("cannot acquire advisory lock, retrying...")
+				Info("[Database] cannot acquire advisory lock, retrying...")
 		}
 	}
 
@@ -86,7 +86,7 @@ func database(ops *Options) (err error) {
 	var db *sql.DB
 	cfg, err = m.ParseDSN(ops.uri)
 	if err != nil {
-		log.WithContext(ops.ctx).WithError(err).Error("invalid uri")
+		log.WithContext(ops.ctx).WithError(err).Error("[Database] invalid uri")
 		return
 	}
 	dbname := cfg.DBName
