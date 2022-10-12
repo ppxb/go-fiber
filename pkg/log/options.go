@@ -19,6 +19,18 @@ type FileWithLineNumOptions struct {
 	skipHelper bool
 }
 
+func WithSkipGorm(flag bool) func(*FileWithLineNumOptions) {
+	return func(options *FileWithLineNumOptions) {
+		getFileWithLineNumOptions(options).skipGorm = flag
+	}
+}
+
+func WithSkipHelper(flag bool) func(*FileWithLineNumOptions) {
+	return func(options *FileWithLineNumOptions) {
+		getFileWithLineNumOptions(options).skipHelper = flag
+	}
+}
+
 func getFileWithLineNumOptions(options *FileWithLineNumOptions) *FileWithLineNumOptions {
 	if options == nil {
 		return &FileWithLineNumOptions{}

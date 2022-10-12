@@ -3,6 +3,7 @@ package log
 import (
 	"fmt"
 	"github.com/ppxb/go-fiber/pkg/constant"
+	"gorm.io/gorm/logger"
 	"os"
 	"path"
 	"runtime"
@@ -20,6 +21,11 @@ type Interface interface {
 	WithFields(fields map[string]interface{}) Interface
 	Log(level Level, v ...interface{})
 	Logf(level Level, format string, v ...interface{})
+}
+
+type Config struct {
+	ops  Options
+	gorm logger.Config
 }
 
 func New(options ...func(*Options)) (l Interface) {

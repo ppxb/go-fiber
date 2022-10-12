@@ -15,6 +15,7 @@ import (
 
 var ctx = context.Background()
 
+//go:embed conf
 var conf embed.FS
 
 // @title evetion-eam-app API
@@ -29,7 +30,7 @@ func main() {
 
 	defer func() {
 		if err := recover(); err != nil {
-			log.WithContext(ctx).WithError(errors.Errorf("%v", err)).Error("server run failed, stack: %s", global.ProName, string(debug.Stack()))
+			log.WithContext(ctx).WithError(errors.Errorf("%v", err)).Error("server run failed, stack: %s", string(debug.Stack()))
 		}
 	}()
 

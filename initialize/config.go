@@ -47,7 +47,7 @@ func Config(c context.Context, conf embed.FS) {
 	}
 
 	if err := v.Unmarshal(&global.Conf); err != nil {
-		panic(errors.Wrapf(err, "initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configName))
+		panic(errors.Wrapf(err, "[Server] initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configName))
 	}
 
 	// initialize some other options
@@ -65,16 +65,16 @@ func Config(c context.Context, conf embed.FS) {
 
 	global.Conf.Server.Base = fmt.Sprintf("/%s/%s", global.Conf.Server.UrlPrefix, global.Conf.Server.ApiVersion)
 
-	log.WithContext(c).Info("initialize config success.config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configName)
+	log.WithContext(c).Info("[Server] initialize config success.config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configName)
 }
 
 func readConfig(box ms.ConfBox, v *viper.Viper, configFile string) {
 	v.SetConfigType(configType)
 	config := box.Get(configFile)
 	if len(config) == 0 {
-		panic(fmt.Sprintf("initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
+		panic(fmt.Sprintf("[Server] initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
 	}
 	if err := v.ReadConfig(bytes.NewReader(config)); err != nil {
-		panic(errors.Wrapf(err, "initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
+		panic(errors.Wrapf(err, "[Server] initialize config failed, config env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
 	}
 }
