@@ -4,7 +4,9 @@ import (
 	"context"
 	"embed"
 	"github.com/pkg/errors"
+	"github.com/ppxb/go-fiber/app/router"
 	"github.com/ppxb/go-fiber/initialize"
+	"github.com/ppxb/go-fiber/pkg/listen"
 	"runtime"
 	"strings"
 
@@ -39,4 +41,13 @@ func main() {
 
 	initialize.Config(ctx, conf)
 	initialize.Mysql(ctx)
+
+	listen.Http(
+		listen.WithHttpCtx(ctx),
+		listen.WithHttpPort(global.Conf.Server.Port),
+		listen.WithHttpHandler(router.Register(ctx)),
+		listen.WithHttpExit(func() {
+			// pass
+		}),
+	)
 }

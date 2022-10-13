@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 8888
   url-prefix: api
   api-version: v1
 
 mysql:
   uri: 'root:123456@tcp(localhost:3306)/evetion?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms'
-  table-prefix: sys
+  table-prefix: tb
   no-sql: false
   init-data: true
   transaction: true

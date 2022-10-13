@@ -36,7 +36,8 @@ func Mysql(ctx context.Context) {
 	if err != nil {
 		panic(errors.Wrap(err, "[Server] initialize mysql failed"))
 	}
-	// initialized binlog listener
+
+	// mysql master-salve binlog sync by redis
 	//err = binlogListen()
 	//if err != nil {
 	//	panic(errors.Wrap(err, "initialize mysql binlog failed"))
@@ -93,6 +94,6 @@ func beforeMigrate(ctx context.Context) (err error) {
 
 //func autoMigrate(ctx context.Context) {
 //	// migrate tables change to sql-migrate: initialize/db/***.sql
-//	// auto migrate fsm
+//	// auto migrate finite-state machine
 //	fsm.Migrate(fsm.WithDb(global.Mysql), fsm.WithCtx(ctx))
 //}
