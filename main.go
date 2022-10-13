@@ -20,11 +20,11 @@ var ctx = context.Background()
 //go:embed conf
 var conf embed.FS
 
-// @title evetion-eam-app API
+// @title evetion eam app API
 // @version 1.0
 // @description A simple Eam system written by golang.
 // @license.name MIT
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @license.url https://github.com/ppxb/go-fiber/blob/master/LICENSE
 // @securityDefinitions.apikey Bearer
 // @in header
 // @name Authorization

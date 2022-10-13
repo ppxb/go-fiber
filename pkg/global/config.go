@@ -5,6 +5,7 @@ import "github.com/go-sql-driver/mysql"
 type Configuration struct {
 	Server ServerConfiguration `mapstructure:"server" json:"server"`
 	Mysql  MysqlConfiguration  `mapstructure:"mysql" json:"mysql"`
+	Jwt    JwtConfiguration    `mapstructure:"jwt" json:"jwt"`
 }
 
 type ServerConfiguration struct {
@@ -22,4 +23,11 @@ type MysqlConfiguration struct {
 	Transaction bool         `mapstructure:"transaction" json:"transaction"`
 	InitData    bool         `mapstructure:"init-data" json:"initData"`
 	DSN         mysql.Config `json:"-"`
+}
+
+type JwtConfiguration struct {
+	Realm      string `mapstructure:"realm" json:"realm"`
+	Key        string `mapstructure:"key" json:"key"`
+	Timeout    int    `mapstructure:"timeout" json:"timeout"`
+	MaxRefresh int    `mapstructure:"max-refresh" json:"maxRefresh"`
 }

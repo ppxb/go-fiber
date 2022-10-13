@@ -9,3 +9,9 @@ mysql:
   no-sql: false
   init-data: true
   transaction: true
+
+jwt:
+  realm: test jwt
+  key: secret key
+  timeout: 24
+  max-refresh: 168

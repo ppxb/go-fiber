@@ -6,4 +6,5 @@ const (
 	MiddlewareCorsMethods     = "OPTIONS,GET,POST,PUT,PATCH,DELETE"
 	MiddlewareCorsExpose      = "Content-Length,Access-Control-Allow-Origin,Access-Control-Allow-Headers,Content-Type"
 	MiddlewareCorsCredentials = "true"
+	MiddlewareJwtUserCtxKey   = "user"
 )
