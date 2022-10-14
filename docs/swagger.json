@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "A simple Eam system written by golang.",
-        "title": "evetion-eam-app API",
+        "title": "fiber eam app API",
         "contact": {},
         "license": {
             "name": "MIT",
@@ -10,17 +10,7 @@
         },
         "version": "1.0"
     },
-    "paths": {
-        "/health": {
-            "get": {
-                "description": "Get server health status",
-                "tags": [
-                    "Server"
-                ],
-                "responses": {}
-            }
-        }
-    },
+    "paths": {},
     "securityDefinitions": {
         "Bearer": {
             "type": "apiKey",

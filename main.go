@@ -20,7 +20,7 @@ var ctx = context.Background()
 //go:embed conf
 var conf embed.FS
 
-// @title evetion eam app API
+// @title fiber eam app API
 // @version 1.0
 // @description A simple Eam system written by golang.
 // @license.name MIT

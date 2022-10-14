@@ -19,17 +19,7 @@ const docTemplate = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {
-        "/health": {
-            "get": {
-                "description": "Get server health status",
-                "tags": [
-                    "Server"
-                ],
-                "responses": {}
-            }
-        }
-    },
+    "paths": {},
     "securityDefinitions": {
         "Bearer": {
             "type": "apiKey",
@@ -45,7 +35,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "evetion-eam-app API",
+	Title:            "fiber eam app API",
 	Description:      "A simple Eam system written by golang.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

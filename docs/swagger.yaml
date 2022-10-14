@@ -4,15 +4,9 @@ info:
   license:
     name: MIT
     url: https://github.com/ppxb/go-fiber/blob/master/LICENSE
-  title: evetion-eam-app API
+  title: fiber eam app API
   version: "1.0"
-paths:
-  /health:
-    get:
-      description: Get server health status
-      responses: {}
-      tags:
-      - Server
+paths: {}
 securityDefinitions:
   Bearer:
     in: header

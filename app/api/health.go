@@ -5,10 +5,7 @@ import (
 	"github.com/ppxb/go-fiber/pkg/response"
 )
 
-// Health
-// @Tags Server
-// @Description Get server health status
-// @Router /health [GET]
+// Health actuator api
 func Health(c *gin.Context) {
 	response.SuccessWithData(c, map[string]string{
 		"status": "UP",
