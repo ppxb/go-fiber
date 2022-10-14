@@ -8,7 +8,7 @@ import (
 	"github.com/ppxb/go-fiber/pkg/constant"
 	"github.com/ppxb/go-fiber/pkg/log"
 	"github.com/ppxb/go-fiber/pkg/req"
-	"github.com/ppxb/go-fiber/pkg/resp"
+	"github.com/ppxb/go-fiber/pkg/response"
 	"github.com/ppxb/go-fiber/pkg/utils"
 	"net/http"
 	"strings"
@@ -126,15 +126,15 @@ func authorizator(i interface{}, c *gin.Context) bool {
 func unauthorized(c *gin.Context, code int, err error, ops JwtOptions) {
 	log.WithContext(c).WithError(err).Warn("[Auth] jwt auth check failed, code: %d", code)
 	msg := fmt.Sprintf("%v", err)
-	if msg == resp.LoginCheckErrorMsg ||
-		msg == resp.ForbiddenMsg ||
-		msg == resp.UserLockedMsg ||
-		msg == resp.UserDisabledMsg ||
-		msg == resp.InvalidCaptchaMsg {
+	if msg == response.LoginCheckErrorMsg ||
+		msg == response.ForbiddenMsg ||
+		msg == response.UserLockedMsg ||
+		msg == response.UserDisabledMsg ||
+		msg == response.InvalidCaptchaMsg {
 		ops.failWithMsg(msg)
 		return
 	}
-	ops.failWithCodeAndMsg(resp.Unauthorized, msg)
+	ops.failWithCodeAndMsg(response.Unauthorized, msg)
 }
 
 func identity(c *gin.Context) interface{} {
@@ -173,8 +173,10 @@ func signedString(key []byte, token *v4.Token) (tokenString string, err error) {
 }
 
 func loginResponse(c *gin.Context, ok int, user interface{}, tokenString string, expire time.Time, ops JwtOptions) {
-	resp.SuccessWithData(c, map[string]interface{}{
-		"user":    user,
+	var userInfo response.User
+	utils.Struct2StructByJson(user, &userInfo)
+	response.SuccessWithData(c, map[string]interface{}{
+		"user":    userInfo,
 		"token":   tokenString,
 		"expires": expire,
 	})

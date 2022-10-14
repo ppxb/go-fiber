@@ -5,7 +5,7 @@ import (
 	"github.com/ppxb/go-fiber/app/models"
 	"github.com/ppxb/go-fiber/pkg/constant"
 	"github.com/ppxb/go-fiber/pkg/req"
-	"github.com/ppxb/go-fiber/pkg/resp"
+	"github.com/ppxb/go-fiber/pkg/response"
 )
 
 type CorsOptions struct {
@@ -27,7 +27,7 @@ type JwtOptions struct {
 	cookieName         string
 	privateBytes       []byte
 	success            func()
-	successWithData    func(c *gin.Context, data interface{}) resp.Resp
+	successWithData    func(c *gin.Context, data interface{}) response.Resp
 	failWithMsg        func(format interface{}, a ...interface{})
 	failWithCodeAndMsg func(code int, format interface{}, a ...interface{})
 	loginPwdCheck      func(c *gin.Context, r req.LoginCheck) (user models.SysUser, err error)

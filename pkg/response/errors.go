@@ -1,7 +1,7 @@
-package resp
+package response
 
 const (
-	Ok                  = 201
+	Ok                  = 200
 	NotOk               = 405
 	Unauthorized        = 401
 	Forbidden           = 403
@@ -16,7 +16,7 @@ const (
 	IllegalParameterMsg        = "illegal parameter"
 	LoginCheckErrorMsg         = "错误的用户名或密码"
 	ForbiddenMsg               = "no permission to access this resource"
-	InternalServerErrorMsg     = "server internal error"
+	InternalServerErrorMsg     = "服务器内部错误"
 	IdempotenceTokenEmptyMsg   = "idempotent token is empty"
 	IdempotenceTokenInvalidMsg = "idempotent token expired"
 	UserDisabledMsg            = "the account has been disabled"
@@ -30,3 +30,8 @@ const (
 	InvalidSignTimestampMsg    = "invalid timestamp"
 	InvalidSignScopeMsg        = "invalid scope"
 )
+
+var ErrMsg = map[int]string{
+	Ok:                  OkMsg,
+	InternalServerError: InternalServerErrorMsg,
+}

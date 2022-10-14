@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ppxb/go-fiber/pkg/resp"
+	"github.com/ppxb/go-fiber/pkg/response"
 )
 
 // Health
@@ -10,7 +10,7 @@ import (
 // @Description Get server health status
 // @Router /health [GET]
 func Health(c *gin.Context) {
-	resp.SuccessWithData(c, map[string]string{
-		"STATUS": "UP",
+	response.SuccessWithData(c, map[string]string{
+		"status": "UP",
 	})
 }

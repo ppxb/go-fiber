@@ -1,10 +1,20 @@
-package resp
+package response
 
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
 )
+
+type Time struct {
+	CreatedAt time.Time `json:"createdAt" swaggertype:"string" example:"2019-01-01 00:00:00"` // create time
+	UpdatedAt time.Time `json:"updatedAt" swaggertype:"string" example:"2019-01-01 00:00:00"` // update time
+}
+
+type Base struct {
+	Id uint `json:"id"`
+	Time
+}
 
 type Resp struct {
 	Code      int         `json:"code"`
@@ -22,22 +32,6 @@ func Result(c *gin.Context, code int, msg string, data interface{}) {
 	})
 }
 
-func Success(c *gin.Context) {
-	Result(c, 200, "success", map[string]interface{}{})
-}
-
 func SuccessWithData(c *gin.Context, data interface{}) {
-	Result(c, 200, "success", data)
-}
-
-func SuccessWithMsg(c *gin.Context, msg string) {
-	Result(c, 200, msg, map[string]interface{}{})
-}
-
-func Fail(c *gin.Context, code int) {
-	Result(c, code, "fail", map[string]interface{}{})
-}
-
-func FailWithMessage(c *gin.Context, msg string) {
-	Result(c, 500, msg, map[string]interface{}{})
+	Result(c, Ok, ErrMsg[Ok], data)
 }

@@ -23,6 +23,7 @@ func Register(ctx context.Context) *gin.Engine {
 
 	r.Use(
 		middleware.Cors(),
+		middleware.Exception,
 	)
 
 	apiGroup := r.Group(global.Conf.Server.UrlPrefix)
