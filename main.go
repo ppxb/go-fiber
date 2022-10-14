@@ -4,9 +4,9 @@ import (
 	"context"
 	"embed"
 	"github.com/pkg/errors"
-	"github.com/ppxb/go-fiber/app/router"
 	"github.com/ppxb/go-fiber/initialize"
 	"github.com/ppxb/go-fiber/pkg/listen"
+	"github.com/ppxb/go-fiber/pkg/router"
 	"runtime"
 	"strings"
 

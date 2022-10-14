@@ -4,9 +4,12 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/ppxb/go-fiber/app/api"
+	"github.com/ppxb/go-fiber/app/models"
 	swagger "github.com/ppxb/go-fiber/docs"
 	"github.com/ppxb/go-fiber/pkg/global"
 	"github.com/ppxb/go-fiber/pkg/middleware"
+	"github.com/ppxb/go-fiber/pkg/req"
+	"github.com/ppxb/go-fiber/pkg/service"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -30,11 +33,14 @@ func Register(ctx context.Context) *gin.Engine {
 		middleware.WithJwtKey(global.Conf.Jwt.Key),
 		middleware.WithJwtTimeout(global.Conf.Jwt.Timeout),
 		middleware.WithJwtMaxRefresh(global.Conf.Jwt.MaxRefresh),
+		middleware.WithJwtLoginPwdCheck(func(c *gin.Context, r req.LoginCheck) (models.SysUser, error) {
+			db := service.New(c)
+			user, err := db.LoginCheck(r)
+			return user, err
+		}),
 	}
 
-	// TODO : JWT
-
-	v1Group := r.Group(global.Conf.Server.ApiVersion)
+	v1Group := apiGroup.Group(global.Conf.Server.ApiVersion)
 
 	swagger.SwaggerInfo.Version = global.Conf.Server.ApiVersion
 	swagger.SwaggerInfo.BasePath = v1Group.BasePath()
@@ -51,6 +57,8 @@ func Register(ctx context.Context) *gin.Engine {
 		WithJwt(true),
 		withJwtOps(jwtOps...),
 	)
+
+	nr.Base()
 
 	return r
 }

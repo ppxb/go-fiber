@@ -14,7 +14,7 @@ const (
 	UnauthorizedMsg            = "login expired, please login again"
 	InvalidParameterMsg        = "invalid parameter"
 	IllegalParameterMsg        = "illegal parameter"
-	LoginCheckErrorMsg         = "wrong username or password"
+	LoginCheckErrorMsg         = "错误的用户名或密码"
 	ForbiddenMsg               = "no permission to access this resource"
 	InternalServerErrorMsg     = "server internal error"
 	IdempotenceTokenEmptyMsg   = "idempotent token is empty"

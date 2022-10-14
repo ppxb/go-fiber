@@ -1,7 +1,11 @@
 package middleware
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/ppxb/go-fiber/app/models"
 	"github.com/ppxb/go-fiber/pkg/constant"
+	"github.com/ppxb/go-fiber/pkg/req"
+	"github.com/ppxb/go-fiber/pkg/resp"
 )
 
 type CorsOptions struct {
@@ -23,10 +27,10 @@ type JwtOptions struct {
 	cookieName         string
 	privateBytes       []byte
 	success            func()
-	successWithData    func(...interface{})
+	successWithData    func(c *gin.Context, data interface{}) resp.Resp
 	failWithMsg        func(format interface{}, a ...interface{})
 	failWithCodeAndMsg func(code int, format interface{}, a ...interface{})
-	//loginPwdCheck      func(c *gin.Context, r req.LoginCheck) (userId int64, err error)
+	loginPwdCheck      func(c *gin.Context, r req.LoginCheck) (user models.SysUser, err error)
 }
 
 func getCorsOptions(options *CorsOptions) *CorsOptions {
@@ -104,13 +108,13 @@ func WithJwtSuccess(fun func()) func(*JwtOptions) {
 	}
 }
 
-func WithJwtSuccessWithData(fun func(...interface{})) func(*JwtOptions) {
-	return func(options *JwtOptions) {
-		if fun != nil {
-			getJwtOptions(options).successWithData = fun
-		}
-	}
-}
+//func WithJwtSuccessWithData(fun func(...interface{})) func(*JwtOptions) {
+//	return func(options *JwtOptions) {
+//		if fun != nil {
+//			getJwtOptions(options).successWithData = fun
+//		}
+//	}
+//}
 
 func WithJwtFailWithMsg(fun func(format interface{}, a ...interface{})) func(*JwtOptions) {
 	return func(options *JwtOptions) {
@@ -128,13 +132,13 @@ func WithJwtFailWithCodeAndMsg(fun func(code int, format interface{}, a ...inter
 	}
 }
 
-//func WithJwtLoginPwdCheck(fun func(c *gin.Context, r req.LoginCheck) (userId int64, err error)) func(*JwtOptions) {
-//	return func(options *JwtOptions) {
-//		if fun != nil {
-//			getJwtOptions(options).loginPwdCheck = fun
-//		}
-//	}
-//}
+func WithJwtLoginPwdCheck(fun func(c *gin.Context, r req.LoginCheck) (user models.SysUser, err error)) func(*JwtOptions) {
+	return func(options *JwtOptions) {
+		if fun != nil {
+			getJwtOptions(options).loginPwdCheck = fun
+		}
+	}
+}
 
 func getJwtOptions(options *JwtOptions) *JwtOptions {
 	if options == nil {
@@ -143,7 +147,7 @@ func getJwtOptions(options *JwtOptions) *JwtOptions {
 			key:             "test secret",
 			timeout:         24,
 			maxRefresh:      168,
-			tokenLookup:     "header: Authorization, query: token, cookie: jwt",
+			tokenLookup:     "header: Authorization, repository: token, cookie: jwt",
 			tokenHeaderName: "Bearer",
 		}
 	}

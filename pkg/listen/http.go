@@ -31,7 +31,7 @@ func Http(options ...func(*HttpOptions)) {
 		}
 	}()
 
-	log.WithContext(ctx).Info("[HTTP SERVER] running at %s:%d/%s", host, port, ops.urlPrefix)
+	log.WithContext(ctx).Info("[HTTP SERVER] running at %s:%d", host, port)
 
 	quit := make(chan os.Signal, 0)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
