@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/go-sql-driver/mysql"
 	"github.com/pkg/errors"
-	"github.com/ppxb/go-fiber/pkg/env"
+	"github.com/ppxb/go-fiber/pkg/global"
 	"github.com/ppxb/go-fiber/pkg/log"
 	"github.com/ppxb/go-fiber/pkg/ms"
 	"github.com/spf13/viper"
@@ -60,7 +60,7 @@ type Jwt struct {
 	MaxRefresh int    `mapstructure:"max-refresh" json:"maxRefresh"`
 }
 
-func init() {
+func New(env string) (Conf *Config) {
 	box := ms.ConfBox{
 		Ctx: ctx,
 		Fs:  conf,
@@ -69,7 +69,7 @@ func init() {
 
 	var configFile string
 	v := viper.New()
-	if env.Active().Value() == "prod" {
+	if env == "prod" {
 		configFile = productionConfig
 	} else {
 		configFile = developmentConfig
@@ -82,7 +82,7 @@ func init() {
 	}
 
 	if err := v.Unmarshal(&Conf); err != nil {
-		panic(errors.Wrapf(err, "[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", env.Active().Value(), box.Dir, configFile))
+		panic(errors.Wrapf(err, "[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", env, box.Dir, configFile))
 	}
 
 	if Conf.Server.ConnectTimeout < 1 {
@@ -97,16 +97,17 @@ func init() {
 		Conf.Server.ApiVersion = "v1"
 	}
 
-	log.WithContext(ctx).Info("[Server] initialize configs success.configs env = [%s] path = [%s/%s]", env.Active().Value(), box.Dir, configFile)
+	log.WithContext(ctx).Info("[Server] initialize configs success.configs env = [%s] path = [%s/%s]", env, box.Dir, configFile)
+	return
 }
 
 func readConfig(box ms.ConfBox, v *viper.Viper, configFile string) {
 	v.SetConfigType(configType)
 	config := box.Get(configFile)
 	if len(config) == 0 {
-		panic(fmt.Sprintf("[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", env.Active().Value(), box.Dir, configFile))
+		panic(fmt.Sprintf("[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
 	}
 	if err := v.ReadConfig(bytes.NewReader(config)); err != nil {
-		panic(errors.Wrapf(err, "[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", env.Active().Value(), box.Dir, configFile))
+		panic(errors.Wrapf(err, "[Server] initialize configs failed, configs env = [%s] path = [%s/%s]", global.ProMode, box.Dir, configFile))
 	}
 }

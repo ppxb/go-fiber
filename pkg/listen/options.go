@@ -2,6 +2,7 @@ package listen
 
 import (
 	"context"
+	"github.com/ppxb/go-fiber/configs"
 	"github.com/ppxb/go-fiber/pkg/utils"
 	"net/http"
 )
@@ -13,7 +14,14 @@ type HttpOptions struct {
 	pprofPort int
 	urlPrefix string
 	handler   http.Handler
+	config    *configs.Config
 	exit      func()
+}
+
+func WithHttpConfig(str string) func(*HttpOptions) {
+	return func(options *HttpOptions) {
+		getHttpOptions(options).config = configs.New(str)
+	}
 }
 
 func WithHttpCtx(ctx context.Context) func(*HttpOptions) {

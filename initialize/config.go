@@ -15,9 +15,9 @@ import (
 
 const (
 	configType            = "yml"
-	configDir             = "configs"
-	developmentConfig     = "configs.dev.yml"
-	productionConfig      = "configs.prod.yml"
+	configDir             = "conf"
+	developmentConfig     = "dev.yml"
+	productionConfig      = "prod.yml"
 	defaultConnectTimeout = 5
 )
 

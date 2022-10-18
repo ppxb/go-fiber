@@ -1,0 +1,19 @@
+server:
+  name: "go-fiber"
+  version: "1.0.0"
+  port: 8888
+  url-prefix: api
+  api-version: v1
+
+mysql:
+  uri: 'root:123456@tcp(localhost:3306)/evetion?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=True&loc=Local&timeout=10000ms'
+  table-prefix: tb
+  no-sql: false
+  init-data: true
+  transaction: true
+
+jwt:
+  realm: test jwt
+  key: secret key
+  timeout: 24
+  max-refresh: 168
