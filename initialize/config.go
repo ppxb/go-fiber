@@ -15,13 +15,16 @@ import (
 
 const (
 	configType            = "yml"
-	configDir             = "conf"
+	configDir             = "./initialize/conf"
 	developmentConfig     = "dev.yml"
 	productionConfig      = "prod.yml"
 	defaultConnectTimeout = 5
 )
 
-func Config(c context.Context, conf embed.FS) {
+//go:embed conf/*.yml
+var conf embed.FS
+
+func Config(c context.Context) {
 	box := ms.ConfBox{
 		Ctx: c,
 		Fs:  conf,
@@ -29,10 +32,9 @@ func Config(c context.Context, conf embed.FS) {
 	}
 	global.ConfBox = box
 
-	// chose configs file
 	var configName string
 	v := viper.New()
-	if strings.ToLower(global.ProMode) == "prod" {
+	if strings.ToLower(global.ProMode) == "release" {
 		configName = productionConfig
 	} else {
 		configName = developmentConfig

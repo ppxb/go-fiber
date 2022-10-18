@@ -19,6 +19,7 @@ type Router struct {
 }
 
 func Register(ctx context.Context) *gin.Engine {
+	gin.SetMode(global.ProMode)
 	r := gin.New()
 
 	r.Use(
