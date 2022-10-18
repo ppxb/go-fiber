@@ -16,7 +16,7 @@ import (
 
 var ctx = context.Background()
 
-//go:embed configs
+//go:embed conf
 var conf embed.FS
 
 // @title fiber eam app API
