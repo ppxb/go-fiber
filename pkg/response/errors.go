@@ -15,6 +15,7 @@ const (
 	InvalidParameterMsg        = "invalid parameter"
 	IllegalParameterMsg        = "illegal parameter"
 	LoginCheckErrorMsg         = "错误的用户名或密码"
+	AssetImportErrorMsg        = "数据导入失败"
 	ForbiddenMsg               = "no permission to access this resource"
 	InternalServerErrorMsg     = "服务器内部错误"
 	IdempotenceTokenEmptyMsg   = "idempotent token is empty"

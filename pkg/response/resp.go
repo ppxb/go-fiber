@@ -35,3 +35,7 @@ func Result(c *gin.Context, code int, msg string, data interface{}) {
 func SuccessWithData(c *gin.Context, data interface{}) {
 	Result(c, Ok, ErrMsg[Ok], data)
 }
+
+func SuccessWithMsg(c *gin.Context, msg string) {
+	Result(c, Ok, msg, map[string]interface{}{})
+}

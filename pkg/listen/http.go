@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func Http(options ...func(*HttpOptions)) {
+func Http(options ...func(*HttpOptions)) error {
 	ops := getHttpOptions(nil)
 	for _, f := range options {
 		f(ops)
@@ -45,9 +45,10 @@ func Http(options ...func(*HttpOptions)) {
 
 	_, cancel := context.WithTimeout(ops.ctx, 5*time.Second)
 	defer cancel()
-	if err := srv.Shutdown(ops.ctx); err != nil {
+	err := srv.Shutdown(ops.ctx)
+	if err != nil {
 		log.WithContext(ctx).WithError(err).Error("[%s][HTTP SERVER] forced to shutdown failed")
 	}
-
 	log.WithContext(ctx).Info("[%s][HTTP SERVER] exiting")
+	return err
 }

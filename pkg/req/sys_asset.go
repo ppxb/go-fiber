@@ -3,7 +3,7 @@ package req
 import "time"
 
 type CreateAssetDto struct {
-	Id          string    `json:"id"`
+	AssetId     string    `json:"assetId"`
 	Name        string    `json:"name"`
 	Type        string    `json:"type"`
 	ChildType   string    `json:"childType"`

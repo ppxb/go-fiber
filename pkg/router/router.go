@@ -60,6 +60,7 @@ func Register(ctx context.Context) *gin.Engine {
 	)
 
 	nr.Base()
+	nr.Asset()
 
 	return r
 }
