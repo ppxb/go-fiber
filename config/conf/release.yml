@@ -13,7 +13,7 @@ mysql:
   transaction: true
 
 jwt:
-  realm: "test jwt"
-  key: "secret key"
+  realm: test jwt
+  key: secret key
   timeout: 24
   max-refresh: 168

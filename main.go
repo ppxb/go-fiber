@@ -4,8 +4,6 @@ import (
 	"context"
 	"github.com/ppxb/go-fiber/initialize"
 	"github.com/ppxb/go-fiber/pkg/global"
-	"github.com/ppxb/go-fiber/pkg/listen"
-	"github.com/ppxb/go-fiber/pkg/router"
 	"runtime"
 	"strings"
 )
@@ -27,12 +25,12 @@ func main() {
 	initialize.Config(ctx)
 	initialize.Mysql(ctx)
 
-	listen.Http(
-		listen.WithHttpCtx(ctx),
-		listen.WithHttpPort(global.Conf.Server.Port),
-		listen.WithHttpHandler(router.Register(ctx)),
-		listen.WithHttpExit(func() {
-			// pass
-		}),
-	)
+	//server.Http(
+	//	listen.WithHttpCtx(ctx),
+	//	listen.WithHttpPort(global.Conf.Server.Port),
+	//	server.WithHttpHandler(router.Register(ctx)),
+	//	server.WithHttpExit(func() {
+	//		// pass
+	//	}),
+	//)
 }

@@ -65,3 +65,7 @@ func ImportExcel(c *gin.Context) {
 		response.SuccessWithMsg(c, "数据导入成功")
 	}
 }
+
+func DownloadTemplate(c *gin.Context) {
+	c.File("./asset/asset_export_template.xlsx")
+}

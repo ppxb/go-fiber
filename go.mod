@@ -10,6 +10,7 @@ require (
 	github.com/golang-module/carbon/v2 v2.1.9
 	github.com/pkg/errors v0.9.1
 	github.com/rubenv/sql-migrate v1.2.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.13.0
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a
 	github.com/swaggo/gin-swagger v1.5.3
