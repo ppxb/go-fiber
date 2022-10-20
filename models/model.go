@@ -7,5 +7,5 @@ type M struct {
 	CreatedAt      time.Time `gorm:"comment:create time" json:"createdAt"`
 	UpdatedAt      time.Time `gorm:"comment:update time" json:"updatedAt"`
 	DeletedAt      time.Time `gorm:"index:idx_deleted_at;comment:soft delete time" json:"deletedAt"`
-	ModifiedUserId uint
+	ModifiedUserId uint      `gorm:"comment:modified user id" json:"modifiedUserId"`
 }

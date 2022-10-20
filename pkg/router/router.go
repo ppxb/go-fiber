@@ -3,10 +3,9 @@ package router
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"github.com/ppxb/go-fiber/app/api"
-	"github.com/ppxb/go-fiber/app/models"
-	"github.com/ppxb/go-fiber/config"
+	"github.com/ppxb/go-fiber/api"
 	swagger "github.com/ppxb/go-fiber/docs"
+	"github.com/ppxb/go-fiber/models"
 	"github.com/ppxb/go-fiber/pkg/global"
 	"github.com/ppxb/go-fiber/pkg/middleware"
 	"github.com/ppxb/go-fiber/pkg/req"
@@ -20,7 +19,7 @@ type Router struct {
 }
 
 func Register(ctx context.Context) *gin.Engine {
-	gin.SetMode(config.Conf.Mode)
+	gin.SetMode(global.Conf.Server.Mode)
 	r := gin.New()
 
 	r.Use(
@@ -28,7 +27,7 @@ func Register(ctx context.Context) *gin.Engine {
 		middleware.Exception,
 	)
 
-	apiGroup := r.Group(config.Conf.UrlPrefix)
+	apiGroup := r.Group(global.Conf.Server.UrlPrefix)
 	apiGroup.GET("/health", api.Health)
 
 	jwtOps := []func(*middleware.JwtOptions){
@@ -43,7 +42,7 @@ func Register(ctx context.Context) *gin.Engine {
 		}),
 	}
 
-	v1Group := apiGroup.Group(config.Conf.ApiVersion)
+	v1Group := apiGroup.Group(global.Conf.Server.ApiVersion)
 
 	swagger.SwaggerInfo.Version = global.Conf.Server.ApiVersion
 	swagger.SwaggerInfo.BasePath = v1Group.BasePath()

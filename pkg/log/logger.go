@@ -2,20 +2,27 @@ package log
 
 import (
 	"fmt"
-	"github.com/ppxb/go-fiber/pkg/constant"
 	"gorm.io/gorm/logger"
 	"os"
 	"path"
+	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
 )
 
 var (
-	logDir  = ""
-	helpDir = ""
+	logDir    = ""
+	helperDir = ""
 )
 
+func init() {
+	_, file, _, _ := runtime.Caller(0)
+	logDir = regexp.MustCompile(`logger\.go`).ReplaceAllString(file, "")
+	helperDir = regexp.MustCompile(`pkg.log.logger\.go`).ReplaceAllString(file, "")
+}
+
+// Interface logger interface
 type Interface interface {
 	Options() Options
 	WithFields(fields map[string]interface{}) Interface
@@ -34,12 +41,7 @@ func New(options ...func(*Options)) (l Interface) {
 		f(ops)
 	}
 
-	switch ops.category {
-	case constant.LogCategoryZap:
-		l = NewZap(ops)
-	default:
-		l = NewZap(ops)
-	}
+	l = newLogrus(ops)
 	return l
 }
 
@@ -54,7 +56,7 @@ func fileWithLineNum(ops Options, options ...func(*FileWithLineNumOptions)) stri
 		if lineOps.skipGorm && (strings.Contains(file, "gorm.io")) {
 			continue
 		}
-		if lineOps.skipHelper && (strings.Contains(file, helpDir)) {
+		if lineOps.skipHelper && (strings.Contains(file, helperDir)) {
 			continue
 		}
 		if ok && (!strings.HasPrefix(file, logDir) || strings.HasPrefix(file, "_test.go")) && !strings.Contains(file, "src/runtime") {
@@ -66,8 +68,8 @@ func fileWithLineNum(ops Options, options ...func(*FileWithLineNumOptions)) stri
 
 func removeBaseDir(s string, ops Options) string {
 	sep := string(os.PathSeparator)
-	if !ops.lineNumSource && strings.HasPrefix(s, helpDir) {
-		s = strings.TrimPrefix(s, path.Dir(strings.TrimSuffix(helpDir, sep))+sep)
+	if !ops.lineNumSource && strings.HasPrefix(s, helperDir) {
+		s = strings.TrimPrefix(s, path.Dir(strings.TrimSuffix(helperDir, sep))+sep)
 	}
 	if strings.HasPrefix(s, ops.lineNumPrefix) {
 		s = strings.TrimPrefix(s, ops.lineNumPrefix)

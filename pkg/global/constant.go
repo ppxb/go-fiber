@@ -1,8 +1,7 @@
 package global
 
-import "github.com/gin-gonic/gin"
-
 const (
-	ProName = "eve-eam-app"
-	ProMode = gin.DebugMode
+	Name    = "fiber app"
+	Version = "1.0.0"
+	Mode    = "debug"
 )

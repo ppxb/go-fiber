@@ -4,7 +4,7 @@ import (
 	"context"
 	"embed"
 	"fmt"
-	"github.com/ppxb/go-fiber/pkg/logger"
+	"github.com/ppxb/go-fiber/pkg/log"
 	"os"
 )
 
@@ -22,13 +22,13 @@ func (c ConfBox) Get(filename string) (bs []byte) {
 	var err error
 	bs, err = os.ReadFile(f)
 	if err != nil {
-		logger.WithContext(c.Ctx).WithError(err).Warn("[configs box]read file %s from system failed", f)
+		log.WithContext(c.Ctx).WithError(err).Warn("read file %s from system failed", f)
 		err = nil
 	}
 	if len(bs) == 0 {
 		bs, err = c.Fs.ReadFile(f)
 		if err != nil {
-			logger.WithContext(c.Ctx).WithError(err).Warn("[configs box]read file %s from embed failed", f)
+			log.WithContext(c.Ctx).WithError(err).Warn("[read file %s from embed failed", f)
 		}
 	}
 	return

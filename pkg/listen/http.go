@@ -1,10 +1,10 @@
-package server
+package listen
 
 import (
 	"context"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/ppxb/go-fiber/pkg/logger"
+	"github.com/ppxb/go-fiber/pkg/log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -29,17 +29,17 @@ func Http(options ...func(*HttpOptions)) error {
 
 	defer func() {
 		if err := recover(); err != nil {
-			logger.WithContext(ctx).WithError(errors.Errorf("%v", err)).Error("server run failed, stack: %s", string(debug.Stack()))
+			log.WithContext(ctx).WithError(errors.Errorf("%v", err)).Error("server run failed, stack: %s", string(debug.Stack()))
 		}
 	}()
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.WithContext(ctx).WithError(err).Error("[HTTP SERVER] listen failed")
+			log.WithContext(ctx).WithError(err).Error("server listen failed")
 		}
 	}()
 
-	logger.WithContext(ctx).Infof("[SERVER] running at %s:%d", host, port)
+	log.WithContext(ctx).Info("running at %s:%d", host, port)
 
 	quit := make(chan os.Signal, 0)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
@@ -49,14 +49,14 @@ func Http(options ...func(*HttpOptions)) error {
 		ops.exit()
 	}
 
-	logger.WithContext(ctx).Infof("[SERVER] shutting down...")
+	log.WithContext(ctx).Info("shutting down")
 
 	_, cancel := context.WithTimeout(ops.ctx, 5*time.Second)
 	defer cancel()
 	err := srv.Shutdown(ops.ctx)
 	if err != nil {
-		logger.WithContext(ctx).WithError(err).Error("[%s][SERVER] forced to shutdown failed")
+		log.WithContext(ctx).WithError(err).Error("forced to shutdown failed")
 	}
-	logger.WithContext(ctx).Infof("[SERVER] exiting")
+	log.WithContext(ctx).Info("exiting")
 	return err
 }

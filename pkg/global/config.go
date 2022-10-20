@@ -3,12 +3,14 @@ package global
 import "github.com/go-sql-driver/mysql"
 
 type Configuration struct {
-	Server ServerConfiguration `mapstructure:"server" json:"server"`
-	Mysql  MysqlConfiguration  `mapstructure:"mysql" json:"mysql"`
-	Jwt    JwtConfiguration    `mapstructure:"jwt" json:"jwt"`
+	Server ServerConf
+	Mysql  MysqlConf
+	Jwt    JwtConf
+	Tracer TracerConf
 }
 
-type ServerConfiguration struct {
+type ServerConf struct {
+	Mode           string `mapstructure:"mode" json:"mode"`
 	Port           int    `mapstructure:"port" json:"port"`
 	Base           string `mapstructure:"-" json:"-"`
 	UrlPrefix      string `mapstructure:"url-prefix" json:"urlPrefix"`
@@ -16,7 +18,7 @@ type ServerConfiguration struct {
 	ConnectTimeout int    `mapstructure:"connect-timeout" json:"connectTimeout"`
 }
 
-type MysqlConfiguration struct {
+type MysqlConf struct {
 	Uri         string       `mapstructure:"uri" json:"uri"`
 	TablePrefix string       `mapstructure:"table-prefix" json:"tablePrefix"`
 	NoSql       bool         `mapstructure:"no-sql" json:"noSql"`
@@ -25,9 +27,16 @@ type MysqlConfiguration struct {
 	DSN         mysql.Config `json:"-"`
 }
 
-type JwtConfiguration struct {
+type JwtConf struct {
 	Realm      string `mapstructure:"realm" json:"realm"`
 	Key        string `mapstructure:"key" json:"key"`
 	Timeout    int    `mapstructure:"timeout" json:"timeout"`
 	MaxRefresh int    `mapstructure:"max-refresh" json:"maxRefresh"`
+}
+
+type TracerConf struct {
+	Enable   bool              `mapstructure:"enable" json:"enable"`
+	Insecure bool              `mapstructure:"insecure" json:"insecure"`
+	Endpoint string            `mapstructure:"endpoint" json:"endpoint"`
+	Headers  map[string]string `mapstructure:"headers" json:"headers"`
 }

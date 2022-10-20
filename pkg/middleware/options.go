@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ppxb/go-fiber/app/models"
+	"github.com/ppxb/go-fiber/models"
 	"github.com/ppxb/go-fiber/pkg/constant"
 	"github.com/ppxb/go-fiber/pkg/req"
 	"github.com/ppxb/go-fiber/pkg/response"

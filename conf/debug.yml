@@ -1,7 +1,7 @@
 server:
-  name: "go-fiber-prod"
-  version: "1.0.0"
-  port: 8888
+  name: go-fiber
+  version: 1.0.0
+  port: 8001
   url-prefix: api
   api-version: v1
 
@@ -13,7 +13,13 @@ mysql:
   transaction: true
 
 jwt:
-  realm: "test jwt"
-  key: "secret key"
+  realm: test jwt
+  key: secret key
   timeout: 24
   max-refresh: 168
+
+tracer:
+  enable: true
+  insecure: true
+  endpoint: 127.0.0.1:4318
+  headers:

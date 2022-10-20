@@ -131,7 +131,7 @@ func unauthorized(c *gin.Context, code int, err error, ops JwtOptions) {
 		msg == response.UserLockedMsg ||
 		msg == response.UserDisabledMsg ||
 		msg == response.InvalidCaptchaMsg {
-		ops.failWithMsg(msg)
+		//ops.failWithMsg(msg)
 		return
 	}
 	ops.failWithCodeAndMsg(response.Unauthorized, msg)

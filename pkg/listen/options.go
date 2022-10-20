@@ -1,4 +1,4 @@
-package server
+package listen
 
 import (
 	"context"
@@ -16,7 +16,7 @@ type HttpOptions struct {
 	exit      func()
 }
 
-func SetHttpCtx(ctx context.Context) func(*HttpOptions) {
+func WithHttpCtx(ctx context.Context) func(*HttpOptions) {
 	return func(options *HttpOptions) {
 		if !utils.InterfaceIsNil(ctx) {
 			getHttpOptions(options).ctx = ctx
@@ -24,13 +24,13 @@ func SetHttpCtx(ctx context.Context) func(*HttpOptions) {
 	}
 }
 
-func SetHttpPort(i int) func(*HttpOptions) {
+func WithHttpPort(i int) func(*HttpOptions) {
 	return func(options *HttpOptions) {
 		getHttpOptions(options).port = i
 	}
 }
 
-func SetHttpHandler(h http.Handler) func(*HttpOptions) {
+func WithHttpHandler(h http.Handler) func(*HttpOptions) {
 	return func(options *HttpOptions) {
 		getHttpOptions(options).handler = h
 	}
@@ -49,7 +49,7 @@ func getHttpOptions(options *HttpOptions) *HttpOptions {
 		return &HttpOptions{
 			ctx:       context.Background(),
 			host:      "0.0.0.0",
-			port:      8888,
+			port:      8080,
 			urlPrefix: "api",
 		}
 	}

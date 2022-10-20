@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/pkg/errors"
-	"github.com/ppxb/go-fiber/app/models"
+	"github.com/ppxb/go-fiber/models"
 	"github.com/ppxb/go-fiber/pkg/req"
 	"github.com/ppxb/go-fiber/pkg/response"
 	"github.com/ppxb/go-fiber/pkg/utils"

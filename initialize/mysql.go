@@ -19,10 +19,10 @@ import (
 //go:embed db/*.sql
 var sqlFs embed.FS
 
-func Mysql(ctx context.Context) {
+func Mysql() {
 	cfg, err := m.ParseDSN(global.Conf.Mysql.Uri)
 	if err != nil {
-		panic(errors.Wrap(err, "[Server] initialized mysql failed"))
+		panic(errors.Wrap(err, "initialize mysql failed"))
 	}
 	global.Conf.Mysql.DSN = *cfg
 	uri := global.Conf.Mysql.Uri
@@ -34,7 +34,7 @@ func Mysql(ctx context.Context) {
 		migrate.WithBefore(beforeMigrate),
 	)
 	if err != nil {
-		panic(errors.Wrap(err, "[Server] initialize mysql failed"))
+		panic(errors.Wrap(err, "initialize mysql failed"))
 	}
 
 	// mysql master-salve binlog sync by redis
@@ -43,7 +43,7 @@ func Mysql(ctx context.Context) {
 	//	panic(errors.Wrap(err, "initialize mysql binlog failed"))
 	//}
 
-	log.WithContext(ctx).Info("[Server] initialize mysql success")
+	log.WithContext(ctx).Info("initialize mysql success")
 }
 
 func beforeMigrate(ctx context.Context) (err error) {
@@ -57,7 +57,7 @@ func beforeMigrate(ctx context.Context) (err error) {
 			select {
 			case <-ctx.Done():
 				if !init {
-					panic(fmt.Sprintf("[Server] initialize mysql failed: connect timeout(%ds)", global.Conf.Server.ConnectTimeout))
+					panic(fmt.Sprintf("initialize mysql failed: connect timeout(%ds)", global.Conf.Server.ConnectTimeout))
 				}
 
 				// avoid goroutine deadlock

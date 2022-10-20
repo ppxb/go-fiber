@@ -11,6 +11,13 @@ type Wrapper struct {
 	fields map[string]interface{}
 }
 
+func NewWrapper(l Interface) *Wrapper {
+	return &Wrapper{
+		log:    l,
+		fields: map[string]interface{}{},
+	}
+}
+
 func (w *Wrapper) Trace(args ...interface{}) {
 	if !w.log.Options().level.Enabled(TraceLevel) {
 		return

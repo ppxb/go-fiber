@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/ppxb/go-fiber/app/models"
+	"github.com/ppxb/go-fiber/models"
 	"github.com/ppxb/go-fiber/pkg/log"
 	"github.com/ppxb/go-fiber/pkg/req"
 	"github.com/ppxb/go-fiber/pkg/response"
