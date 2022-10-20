@@ -1,12 +1,16 @@
 package global
 
-import "github.com/go-sql-driver/mysql"
+import (
+	"github.com/go-sql-driver/mysql"
+	"github.com/ppxb/go-fiber/pkg/log"
+)
 
 type Configuration struct {
 	Server ServerConf
 	Mysql  MysqlConf
 	Jwt    JwtConf
 	Tracer TracerConf
+	Log    LogConf
 }
 
 type ServerConf struct {
@@ -39,4 +43,19 @@ type TracerConf struct {
 	Insecure bool              `mapstructure:"insecure" json:"insecure"`
 	Endpoint string            `mapstructure:"endpoint" json:"endpoint"`
 	Headers  map[string]string `mapstructure:"headers" json:"headers"`
+}
+
+type LogConf struct {
+	Level                    log.Level       `mapstructure:"level" json:"level"`
+	Json                     bool            `mapstructure:"json" json:"json"`
+	LineNum                  LogsLineNumConf `mapstructure:"line-num" json:"lineNum"`
+	OperationKey             string          `mapstructure:"operation-key" json:"operationKey"`
+	OperationAllowedToDelete bool            `mapstructure:"operation-allowed-to-delete" json:"operationAllowedToDelete"`
+}
+
+type LogsLineNumConf struct {
+	Disable bool `mapstructure:"disable" json:"disable"`
+	Level   int  `mapstructure:"level" json:"level"`
+	Version bool `mapstructure:"version" json:"version"`
+	Source  bool `mapstructure:"source" json:"source"`
 }

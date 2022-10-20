@@ -5,6 +5,12 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	Name    = "fiber app"
+	Version = "1.0.0"
+	Mode    = "debug"
+)
+
 var (
 	Conf        Configuration
 	ConfBox     ms.ConfBox

@@ -23,3 +23,22 @@ tracer:
   insecure: true
   endpoint: 127.0.0.1:4318
   headers:
+
+logs:
+  # logger level(4:Info 5:Debug, 0<=level<=6, refer to go-helper log.level)
+  level: 4
+  # normal text or json str
+  json: false
+  line-num:
+    # disable line num
+    disable: false
+    # line num level(package path level)
+    level: 1
+    # keep logger source dir
+    source: false
+    # keep logger version
+    version: true
+  # operation log context key
+  operation-key: operation_log_response
+  # allow users to delete operation logs
+  operation-allowed-to-delete: false
